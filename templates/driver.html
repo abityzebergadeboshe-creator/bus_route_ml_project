@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="driver-box">
+
+    <h1>Driver Dashboard</h1>
+
+    <p>Welcome to the GuzoAI Driver Dashboard.</p>
+
+    <h2>Driver Verification</h2>
+
+    <p>
+        Drivers can submit their information for verification
+        before joining the transportation schedule.
+    </p>
+
+    <a href="/verify" class="btn">Verify Driver</a>
+
+    <h2>2-Week Schedule</h2>
+
+    <p>
+        Manage your route and availability for the next two weeks.
+    </p>
+
+    <a href="/schedule" class="btn">View Schedule</a>
+
+</div>
+
+{% endblock %}

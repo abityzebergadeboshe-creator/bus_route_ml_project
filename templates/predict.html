@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="prediction-box">
+
+    <h1>GuzoAI Trip Prediction</h1>
+    <p>Enter your trip information to predict fare and travel time.</p>
+
+    <form action="/predict" method="POST">
+
+        <label>Distance (km)</label>
+        <input type="number" name="distance" step="0.1" required>
+
+        <label>Duration (minutes)</label>
+        <input type="number" name="duration" step="0.1" required>
+
+        <label>Traffic Level</label>
+        <input type="number" name="traffic" min="1" max="5" required>
+
+        <label>Hour</label>
+        <input type="number" name="hour" min="0" max="23" required>
+
+        <label>Number of Passengers</label>
+        <input type="number" name="passengers" min="1" required>
+
+        <button type="submit">Predict</button>
+
+    </form>
+
+</div>
+
+{% endblock %}

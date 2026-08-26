@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="prediction-box">
+
+    <h1>GuzoAI Prediction Result</h1>
+
+    <h2>Predicted Fare</h2>
+    <p class="result">{{ prediction }}</p>
+
+    <h2>Estimated Travel Time</h2>
+    <p class="result">{{ eta }} minutes</p>
+
+    <h2>Traffic Level</h2>
+    <p class="result">{{ traffic }}</p>
+
+    <a href="/predict" class="btn">Make Another Prediction</a>
+
+</div>
+
+{% endblock %}

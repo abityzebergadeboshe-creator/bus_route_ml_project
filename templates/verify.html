@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>Driver Verification</h1>
+
+<p>Enter your information to register as a GuzoAI driver.</p>
+
+<form action="/verify" method="POST">
+
+    <label>Driver Name</label>
+    <input type="text" name="driver_name" required>
+
+    <label>Driver ID</label>
+    <input type="text" name="driver_id" required>
+
+    <label>Phone Number</label>
+    <input type="text" name="phone" required>
+
+    <label>Vehicle Number</label>
+    <input type="text" name="vehicle" required>
+
+    <button type="submit">Submit Verification</button>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>Driver Verification</h1>
+
+{% for driver in drivers %}
+
+<div>
+    <h3>{{ driver[1] }}</h3>
+
+    <p>Driver ID: {{ driver[2] }}</p>
+    <p>Phone: {{ driver[3] }}</p>
+    <p>Vehicle: {{ driver[4] }}</p>
+    <p>Status: {{ driver[5] }}</p>
+
+    <a href="/approve/{{ driver[0] }}">Approve</a>
+    <a href="/reject/{{ driver[0] }}">Reject</a>
+</div>
+
+<hr>
+
+{% endfor %}
+
+{% endblock %}

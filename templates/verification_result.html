@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h1>Driver Verification</h1>
+
+<p><strong>Driver:</strong> {{ driver_name }}</p>
+<p><strong>Driver ID:</strong> {{ driver_id }}</p>
+<p><strong>Vehicle:</strong> {{ vehicle }}</p>
+
+<h2>Status: {{ status }}</h2>
+
+<p>
+Your verification application has been submitted.
+Please wait for administrator approval.
+</p>
+
+<a href="/driver">Back to Driver Dashboard</a>
+
+{% endblock %}
