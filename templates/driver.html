@@ -1,84 +1,61 @@
 {% extends "layout.html" %}
 
-{% block title %}Driver Dashboard - GuzoAI{% endblock %}
+{% block title %}Home - GuzoAI{% endblock %}
 
 {% block content %}
 
-<section class="driver-section">
+<section class="hero">
 
-    <div class="page-header">
+    <h1>Welcome to GuzoAI</h1>
 
-        <h1>Driver Dashboard</h1>
+    <h2>Intelligent Urban Transportation</h2>
 
-        <p>
-            Welcome to the GuzoAI Driver Dashboard.
-            Manage your verification and transportation schedule.
-        </p>
+    <p>
+        GuzoAI uses artificial intelligence to make transportation
+        smarter, faster, and easier.
+    </p>
+
+    <p>
+        Predict fares, estimate travel time, and analyze traffic
+        before you start your journey.
+    </p>
+
+    <div class="hero-buttons">
+
+        <a href="{{ url_for('predict') }}" class="btn">
+            Get a Prediction
+        </a>
+
+        <a href="{{ url_for('driver') }}" class="btn secondary-btn">
+            Driver Portal
+        </a>
 
     </div>
 
-
-    <div class="driver-options">
-
-
-        <div class="driver-card">
-
-            <h2>Driver Verification</h2>
-
-            <p>
-                Submit your driver information for verification.
-                Your application must be approved by an administrator
-                before you can officially join the GuzoAI system.
-            </p>
-
-            <a
-                href="{{ url_for('verify') }}"
-                class="btn"
-            >
-                Verify Driver
-            </a>
-
-        </div>
+</section>
 
 
-        <div class="driver-card">
+<section class="features">
 
-            <h2>2-Week Schedule</h2>
+    <div class="feature-card">
+        <h3>AI Fare Prediction</h3>
+        <p>
+            Get an estimated fare based on your trip information.
+        </p>
+    </div>
 
-            <p>
-                Enter your route, departure time, date, and expected
-                passenger demand to help GuzoAI manage transportation.
-            </p>
+    <div class="feature-card">
+        <h3>ETA Prediction</h3>
+        <p>
+            Estimate how long your journey will take.
+        </p>
+    </div>
 
-            <a
-                href="{{ url_for('schedule') }}"
-                class="btn"
-            >
-                Manage Schedule
-            </a>
-
-        </div>
-
-
-        <div class="driver-card">
-
-            <h2>Admin Verification</h2>
-
-            <p>
-                Administrators can review driver applications and
-                approve or reject verification requests.
-            </p>
-
-            <a
-                href="{{ url_for('admin') }}"
-                class="btn secondary-btn"
-            >
-                Admin Dashboard
-            </a>
-
-        </div>
-
-
+    <div class="feature-card">
+        <h3>Traffic Analysis</h3>
+        <p>
+            Use AI-powered predictions to understand traffic conditions.
+        </p>
     </div>
 
 </section>
