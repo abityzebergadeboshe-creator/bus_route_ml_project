@@ -1,22 +1,63 @@
 {% extends "layout.html" %}
 
+{% block title %}Home - GuzoAI{% endblock %}
+
 {% block content %}
 
-<div class="hero">
+<section class="hero">
 
     <h1>Welcome to GuzoAI</h1>
 
+    <h2>Intelligent Urban Transportation</h2>
+
     <p>
-        Intelligent Urban Transportation Platform
+        GuzoAI uses artificial intelligence to make transportation
+        smarter, faster, and easier.
     </p>
 
     <p>
         Predict fares, estimate travel time, and analyze traffic
-        using GuzoAI's AI system.
+        before you start your journey.
     </p>
 
-    <a href="/predict" class="btn">Get a Prediction</a>
+    <div class="hero-buttons">
 
-</div>
+        <a href="{{ url_for('predict') }}" class="btn">
+            Get a Prediction
+        </a>
+
+        <a href="{{ url_for('driver') }}" class="btn secondary-btn">
+            Driver Portal
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="features">
+
+    <div class="feature-card">
+        <h3>AI Fare Prediction</h3>
+        <p>
+            Get an estimated fare based on your trip information.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>ETA Prediction</h3>
+        <p>
+            Estimate how long your journey will take.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Traffic Analysis</h3>
+        <p>
+            Use AI-powered predictions to understand traffic conditions.
+        </p>
+    </div>
+
+</section>
 
 {% endblock %}
