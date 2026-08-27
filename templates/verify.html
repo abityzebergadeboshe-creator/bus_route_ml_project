@@ -1,27 +1,69 @@
 {% extends "layout.html" %}
 
+{% block title %}Driver Verification - GuzoAI{% endblock %}
+
 {% block content %}
 
-<h1>Driver Verification</h1>
+<section class="form-section">
 
-<p>Enter your information to register as a GuzoAI driver.</p>
+    <h1>Driver Verification</h1>
 
-<form action="/verify" method="POST">
+    <p>
+        Register as a GuzoAI driver by entering your information below.
+    </p>
 
-    <label>Driver Name</label>
-    <input type="text" name="driver_name" required>
+    <form action="{{ url_for('verify') }}" method="POST">
 
-    <label>Driver ID</label>
-    <input type="text" name="driver_id" required>
+        <div class="form-group">
+            <label for="driver_name">Driver Name</label>
+            <input
+                type="text"
+                id="driver_name"
+                name="driver_name"
+                placeholder="Enter your full name"
+                required
+            >
+        </div>
 
-    <label>Phone Number</label>
-    <input type="text" name="phone" required>
+        <div class="form-group">
+            <label for="driver_id">Driver ID</label>
+            <input
+                type="text"
+                id="driver_id"
+                name="driver_id"
+                placeholder="Enter your driver ID"
+                required
+            >
+        </div>
 
-    <label>Vehicle Number</label>
-    <input type="text" name="vehicle" required>
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Enter your phone number"
+                required
+            >
+        </div>
 
-    <button type="submit">Submit Verification</button>
+        <div class="form-group">
+            <label for="vehicle">Vehicle Number</label>
+            <input
+                type="text"
+                id="vehicle"
+                name="vehicle"
+                placeholder="Enter your vehicle number"
+                required
+            >
+        </div>
 
-</form>
+        <button type="submit" class="btn">
+            Submit Verification
+        </button>
+
+    </form>
+
+</section>
 
 {% endblock %}
