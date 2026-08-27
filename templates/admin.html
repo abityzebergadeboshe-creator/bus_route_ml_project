@@ -1,25 +1,114 @@
 {% extends "layout.html" %}
 
+{% block title %}Admin Dashboard - GuzoAI{% endblock %}
+
 {% block content %}
 
-<h1>Driver Verification</h1>
+<section class="admin-section">
 
-{% for driver in drivers %}
+    <div class="admin-header">
+        <h1>Admin Dashboard</h1>
 
-<div>
-    <h3>{{ driver[1] }}</h3>
+        <p>
+            Review and manage GuzoAI driver verification applications.
+        </p>
+    </div>
 
-    <p>Driver ID: {{ driver[2] }}</p>
-    <p>Phone: {{ driver[3] }}</p>
-    <p>Vehicle: {{ driver[4] }}</p>
-    <p>Status: {{ driver[5] }}</p>
 
-    <a href="/approve/{{ driver[0] }}">Approve</a>
-    <a href="/reject/{{ driver[0] }}">Reject</a>
-</div>
+    {% if drivers %}
 
-<hr>
+        <div class="driver-list">
 
-{% endfor %}
+            {% for driver in drivers %}
+
+                <div class="driver-card">
+
+                    <div class="driver-card-header">
+
+                        <h2>{{ driver[1] }}</h2>
+
+                        <span class="status">
+                            {{ driver[5] }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="driver-details">
+
+                        <p>
+                            <strong>Driver ID:</strong>
+                            {{ driver[2] }}
+                        </p>
+
+                        <p>
+                            <strong>Phone:</strong>
+                            {{ driver[3] }}
+                        </p>
+
+                        <p>
+                            <strong>Vehicle Number:</strong>
+                            {{ driver[4] }}
+                        </p>
+
+                    </div>
+
+
+                    {% if driver[5] == "Pending" %}
+
+                        <div class="admin-actions">
+
+                            <a
+                                href="{{ url_for('approve', driver_id=driver[0]) }}"
+                                class="btn approve-btn"
+                            >
+                                Approve
+                            </a>
+
+                            <a
+                                href="{{ url_for('reject', driver_id=driver[0]) }}"
+                                class="btn reject-btn"
+                            >
+                                Reject
+                            </a>
+
+                        </div>
+
+                    {% elif driver[5] == "Approved" %}
+
+                        <p class="approved-message">
+                            This driver has been approved.
+                        </p>
+
+                    {% elif driver[5] == "Rejected" %}
+
+                        <p class="rejected-message">
+                            This driver has been rejected.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h2>No Driver Applications</h2>
+
+            <p>
+                There are currently no driver verification applications
+                to review.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</section>
 
 {% endblock %}
