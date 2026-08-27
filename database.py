@@ -1,8 +1,33 @@
 import sqlite3
 
+
+DATABASE = "guzoai.db"
+
+
 def create_database():
-    conn = sqlite3.connect("guzoai.db")
+
+    conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
+
+    # ==============================
+    # DRIVER TABLE
+    # ==============================
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS drivers (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            driver_name TEXT NOT NULL,
+            driver_id TEXT UNIQUE NOT NULL,
+            phone TEXT NOT NULL,
+            vehicle TEXT NOT NULL,
+            status TEXT DEFAULT 'Pending'
+        )
+    """)
+
+
+    # ==============================
+    # SCHEDULE TABLE
+    # ==============================
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS schedules (
@@ -15,8 +40,11 @@ def create_database():
         )
     """)
 
+
     conn.commit()
     conn.close()
 
 
-create_database()
+if __name__ == "__main__":
+    create_database()
+    print("GuzoAI database created successfully.")
