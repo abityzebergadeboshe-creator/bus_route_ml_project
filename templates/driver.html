@@ -1,30 +1,86 @@
 {% extends "layout.html" %}
 
+{% block title %}Driver Dashboard - GuzoAI{% endblock %}
+
 {% block content %}
 
-<div class="driver-box">
+<section class="driver-section">
 
-    <h1>Driver Dashboard</h1>
+    <div class="page-header">
 
-    <p>Welcome to the GuzoAI Driver Dashboard.</p>
+        <h1>Driver Dashboard</h1>
 
-    <h2>Driver Verification</h2>
+        <p>
+            Welcome to the GuzoAI Driver Dashboard.
+            Manage your verification and transportation schedule.
+        </p>
 
-    <p>
-        Drivers can submit their information for verification
-        before joining the transportation schedule.
-    </p>
+    </div>
 
-    <a href="/verify" class="btn">Verify Driver</a>
 
-    <h2>2-Week Schedule</h2>
+    <div class="driver-options">
 
-    <p>
-        Manage your route and availability for the next two weeks.
-    </p>
 
-    <a href="/schedule" class="btn">View Schedule</a>
+        <div class="driver-card">
 
-</div>
+            <h2>Driver Verification</h2>
+
+            <p>
+                Submit your driver information for verification.
+                Your application must be approved by an administrator
+                before you can officially join the GuzoAI system.
+            </p>
+
+            <a
+                href="{{ url_for('verify') }}"
+                class="btn"
+            >
+                Verify Driver
+            </a>
+
+        </div>
+
+
+        <div class="driver-card">
+
+            <h2>2-Week Schedule</h2>
+
+            <p>
+                Enter your route, departure time, date, and expected
+                passenger demand to help GuzoAI manage transportation.
+            </p>
+
+            <a
+                href="{{ url_for('schedule') }}"
+                class="btn"
+            >
+                Manage Schedule
+            </a>
+
+        </div>
+
+
+        <div class="driver-card">
+
+            <h2>Admin Verification</h2>
+
+            <p>
+                Administrators can review driver applications and
+                approve or reject verification requests.
+            </p>
+
+            <a
+                href="{{ url_for('admin') }}"
+                class="btn secondary-btn"
+            >
+                Admin Dashboard
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
 
 {% endblock %}
