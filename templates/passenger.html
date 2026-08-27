@@ -1,34 +1,184 @@
 {% extends "layout.html" %}
 
+{% block title %}Passenger Dashboard - GuzoAI{% endblock %}
+
 {% block content %}
 
-<h1>Passenger Dashboard</h1>
+<section class="passenger-section">
 
-<p>Enter your trip information to get a fare prediction.</p>
+    <div class="page-header">
 
-<form action="/predict" method="POST">
+        <h1>Passenger Dashboard</h1>
 
-    <label>Distance (km)</label>
-    <input type="number" name="distance" step="0.1" required>
+        <p>
+            Enter your trip information and let GuzoAI predict
+            your fare, travel time, and traffic condition.
+        </p>
 
-    <label>Duration (minutes)</label>
-    <input type="number" name="duration" step="0.1" required>
+    </div>
 
-    <label>Traffic Level</label>
-    <select name="traffic" required>
-        <option value="1">Low</option>
-        <option value="2">Medium</option>
-        <option value="3">High</option>
-    </select>
 
-    <label>Hour</label>
-    <input type="number" name="hour" min="0" max="23" required>
+    <div class="prediction-form">
 
-    <label>Passenger Count</label>
-    <input type="number" name="passengers" min="1" required>
+        <h2>Trip Information</h2>
 
-    <button type="submit">Predict Fare</button>
+        <form action="{{ url_for('predict') }}" method="POST">
 
-</form>
+            <div class="form-group">
+
+                <label for="distance">
+                    Distance (km)
+                </label>
+
+                <input
+                    type="number"
+                    id="distance"
+                    name="distance"
+                    min="0.1"
+                    step="0.1"
+                    placeholder="e.g. 8.5"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="duration">
+                    Duration (minutes)
+                </label>
+
+                <input
+                    type="number"
+                    id="duration"
+                    name="duration"
+                    min="1"
+                    step="0.1"
+                    placeholder="e.g. 25"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="traffic">
+                    Traffic Level
+                </label>
+
+                <select
+                    id="traffic"
+                    name="traffic"
+                    required
+                >
+
+                    <option value="" disabled selected>
+                        Select traffic level
+                    </option>
+
+                    <option value="1">
+                        Low
+                    </option>
+
+                    <option value="2">
+                        Medium
+                    </option>
+
+                    <option value="3">
+                        High
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="hour">
+                    Travel Hour
+                </label>
+
+                <input
+                    type="number"
+                    id="hour"
+                    name="hour"
+                    min="0"
+                    max="23"
+                    placeholder="0 - 23"
+                    required
+                >
+
+                <small>
+                    Enter the hour using 24-hour format.
+                    Example: 8 = 8 AM, 18 = 6 PM.
+                </small>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="passengers">
+                    Passenger Count
+                </label>
+
+                <input
+                    type="number"
+                    id="passengers"
+                    name="passengers"
+                    min="1"
+                    placeholder="e.g. 3"
+                    required
+                >
+
+            </div>
+
+
+            <button type="submit" class="btn">
+                Get AI Prediction
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div class="prediction-info">
+
+        <h2>What GuzoAI Predicts</h2>
+
+        <div class="info-cards">
+
+            <div class="info-card">
+                <h3>Fare</h3>
+                <p>
+                    Estimated trip fare based on your journey details.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>ETA</h3>
+                <p>
+                    Estimated travel time based on distance,
+                    traffic, and other factors.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>Traffic</h3>
+                <p>
+                    Your selected traffic level is included
+                    in the AI prediction.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 {% endblock %}
