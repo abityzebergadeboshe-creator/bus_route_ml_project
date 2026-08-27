@@ -1,208 +1,623 @@
-/* ==========================================================================
-   PREMIUM ULTRA-DARK DESIGN SHEET RULES
-   ========================================================================== */
-* { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+/* ==============================
+   GUZOAI - MAIN STYLESHEET
+   ============================== */
 
-body {
-    background-color: #11131c;
-    color: #f3f4f6;
+* {
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    box-sizing: border-box;
 }
 
-/* Page Visibility States */
-.hidden { display: none !important; }
-.hidden-dropdown { display: none !important; }
-
-/* Top Header Navigation Panel Styling */
-header {
-    background-color: #181a24;
-    padding: 16px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #222533;
-    position: relative;
-    z-index: 1000;
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    color: #222;
+    line-height: 1.6;
 }
 
-.brand-group { display: flex; align-items: center; gap: 12px; cursor: pointer; }
-.brand-icon {
-    background-color: #2563eb;
+
+/* ==============================
+   NAVIGATION
+   ============================== */
+
+nav {
+    background: #14213d;
     color: white;
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
+    padding: 18px 50px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
+    font-size: 26px;
     font-weight: bold;
-    font-size: 14px;
 }
-.brand-text { font-size: 20px; font-weight: 700; color: #ffffff; letter-spacing: -0.02em; }
 
-nav { display: flex; align-items: center; gap: 24px; position: relative; }
-
-.nav-home-link {
-    background: none;
-    border: none;
-    color: #9ca3af;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
+nav ul {
+    list-style: none;
     display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: color 0.2s;
+    gap: 25px;
 }
-.nav-home-link:hover, .nav-home-link.active { color: #ffffff; }
 
-/* Dropdown Menu Pill Buttons */
-.schedule-btn {
-    background-color: #2563eb;
+nav ul li a {
     color: white;
-    padding: 10px 20px;
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 15px;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: background 0.2s;
-}
-.schedule-btn:hover { background-color: #1d4ed8; }
-
-.dropdown-menu {
-    position: absolute;
-    right: 0;
-    top: calc(100% + 12px);
-    background-color: #1c1e29;
-    border: 1px solid #282b3d;
-    width: 260px;
-    border-radius: 14px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-    padding: 6px;
-    z-index: 2000;
-}
-
-.dropdown-item {
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 12px 16px;
-    color: #9ca3af;
-    text-align: left;
-    font-size: 14px;
+    text-decoration: none;
     font-weight: 500;
-    cursor: pointer;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: all 0.2s;
-}
-.dropdown-item:hover { background-color: #242736; color: #ffffff; }
-
-/* Core Layout Display Cards */
-main { max-width: 1000px; width: 100%; margin: 0 auto; padding: 40px 24px; flex-grow: 1; }
-
-.console-box {
-    background-color: #181a24;
-    border-radius: 16px;
-    padding: 32px;
-    border: 1px solid #222533;
-    margin-bottom: 24px;
 }
 
-.console-title { font-size: 24px; font-weight: 700; color: #ffffff; margin: 0 0 6px 0; }
-.console-subtitle { font-size: 14px; color: #9ca3af; margin: 0; }
+nav ul li a:hover {
+    color: #fca311;
+}
 
-/* Premium Grid Calendar Design */
-.calendar-section-title { font-size: 15px; font-weight: 600; color: #f3f4f6; margin: 24px 0 16px 0; }
 
-.calendar-grid {
-    display: grid;
-    grid-template-cols: repeat(7, 1fr);
-    gap: 10px;
+/* ==============================
+   MAIN CONTAINER
+   ============================== */
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+    min-height: 70vh;
+}
+
+.page-header {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 30px;
 }
 
-.day-header { font-size: 13px; font-weight: 600; color: #6b7280; padding-bottom: 6px; }
-
-.calendar-day {
-    background-color: #1c1e29;
-    border: 1px solid #26293a;
-    padding: 16px 0;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    color: #cbd5e1;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.calendar-day:hover { background-color: #242736; border-color: #3b82f6; }
-.calendar-day.active {
-    background-color: #1e2640;
-    border: 2px solid #2563eb;
-    color: #ffffff;
+.page-header h1 {
+    font-size: 38px;
+    margin-bottom: 10px;
 }
 
-/* Premium Form Elements */
-.form-row { display: grid; grid-template-cols: 1fr 1fr; gap: 20px; margin-top: 16px; }
-@media (max-width: 600px) { .form-row { grid-template-cols: 1fr; } }
-
-.input-group { display: flex; flex-direction: column; gap: 8px; }
-.input-group label { font-size: 13px; font-weight: 600; color: #9ca3af; }
-
-.dark-input {
-    background-color: #1c1e29;
-    border: 1px solid #26293a;
-    padding: 12px 16px;
-    border-radius: 10px;
-    color: white;
-    font-size: 15px;
-    outline: none;
-    transition: border-color 0.2s;
+.page-header p {
+    color: #666;
 }
-.dark-input:focus { border-color: #2563eb; }
 
-.action-btn {
-    width: 100%;
-    padding: 14px;
-    border-radius: 10px;
+
+/* ==============================
+   HERO / HOME
+   ============================== */
+
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.hero h1 {
+    font-size: 48px;
+    color: #14213d;
+    margin-bottom: 10px;
+}
+
+.hero h2 {
+    color: #fca311;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: 10px auto;
+    color: #555;
+}
+
+.hero-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+
+/* ==============================
+   BUTTONS
+   ============================== */
+
+.btn {
+    display: inline-block;
+    background: #fca311;
+    color: #14213d;
+    padding: 12px 22px;
+    border-radius: 8px;
+    text-decoration: none;
     border: none;
-    font-size: 15px;
-    font-weight: 700;
     cursor: pointer;
-    margin-top: 24px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    font-weight: bold;
+    font-size: 15px;
 }
-.action-btn.blue { background-color: #2563eb; color: white; }
-.action-btn.green { background-color: #10b981; color: white; }
 
-/* Readout History Tables Layout */
-table { width: 100%; border-collapse: collapse; margin-top: 16px; text-align: left; }
-th { padding: 14px; font-size: 12px; font-weight: 700; color: #6b7280; text-transform: uppercase; border-bottom: 2px solid #222533; letter-spacing: 0.05em; }
-td { padding: 16px; font-size: 14px; color: #e5e7eb; border-bottom: 1px solid #222533; }
-tr:hover td { background-color: #1c1e29; }
-.time-pill { background-color: #1e2640; color: #3b82f6; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: 700; }
+.btn:hover {
+    background: #e89500;
+}
 
-.blank-state { text-align: center; padding: 60px 20px; color: #9ca3af; }
-.blank-state-icon { font-size: 48px; margin-bottom: 16px; }
+.secondary-btn {
+    background: #14213d;
+    color: white;
+}
+
+.secondary-btn:hover {
+    background: #1d3557;
+}
+
+
+/* ==============================
+   FEATURE CARDS
+   ============================== */
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.feature-card,
+.info-card,
+.driver-card,
+.result-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+}
+
+.feature-card h3,
+.info-card h3 {
+    color: #14213d;
+    margin-bottom: 10px;
+}
+
+
+/* ==============================
+   DRIVER DASHBOARD
+   ============================== */
+
+.driver-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.driver-card h2 {
+    color: #14213d;
+    margin-bottom: 15px;
+}
+
+.driver-card p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+
+/* ==============================
+   FORMS
+   ============================== */
+
+.form-section,
+.schedule-form,
+.prediction-box,
+.prediction-form {
+    background: white;
+    max-width: 650px;
+    margin: 0 auto 40px;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.form-section h1,
+.schedule-form h2,
+.prediction-box h2,
+.prediction-form h2 {
+    color: #14213d;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label,
+form > label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    font-size: 15px;
+    background: white;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #fca311;
+}
+
+small {
+    display: block;
+    margin-top: 5px;
+    color: #777;
+}
+
+form .btn {
+    margin-top: 5px;
+}
+
+
+/* ==============================
+   SCHEDULE TABLE
+   ============================== */
+
+.schedule-list {
+    margin-top: 40px;
+}
+
+.schedule-list h2 {
+    margin-bottom: 20px;
+    color: #14213d;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+}
+
+th,
+td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background: #14213d;
+    color: white;
+}
+
+tr:hover {
+    background: #f8f8f8;
+}
+
+
+/* ==============================
+   ADMIN DASHBOARD
+   ============================== */
+
+.driver-list {
+    display: grid;
+    gap: 20px;
+}
+
+.admin-section {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.admin-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.driver-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.status {
+    background: #eee;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.driver-details {
+    margin: 20px 0;
+}
+
+.driver-details p {
+    margin-bottom: 7px;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.approve-btn {
+    background: #2a9d8f;
+    color: white;
+}
+
+.approve-btn:hover {
+    background: #21867a;
+}
+
+.reject-btn {
+    background: #e63946;
+    color: white;
+}
+
+.reject-btn:hover {
+    background: #c92f3b;
+}
+
+.approved-message {
+    color: #2a9d8f;
+    font-weight: bold;
+}
+
+.rejected-message {
+    color: #e63946;
+    font-weight: bold;
+}
+
+
+/* ==============================
+   VERIFICATION RESULT
+   ============================== */
+
+.verification-section {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.verification-card {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.verification-card h1 {
+    color: #14213d;
+    margin-bottom: 10px;
+}
+
+.verification-intro {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.driver-info {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin: 20px 0;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-row span {
+    color: #666;
+}
+
+.status-box {
+    text-align: center;
+    background: #f4f7fb;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 25px 0;
+}
+
+.status-box p {
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.status-box h2 {
+    color: #fca311;
+}
+
+.status-message {
+    margin-bottom: 25px;
+}
+
+.verification-buttons,
+.result-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+
+/* ==============================
+   PREDICTION RESULTS
+   ============================== */
+
+.result-section {
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.results-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.result-card {
+    text-align: center;
+}
+
+.result-card h2 {
+    color: #14213d;
+    margin-bottom: 15px;
+}
+
+.result-value {
+    font-size: 32px;
+    font-weight: bold;
+    color: #fca311;
+}
+
+.result-label {
+    color: #777;
+    margin-top: 5px;
+}
+
+.result-message {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin: 30px 0;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+}
+
+.result-message h2 {
+    color: #14213d;
+    margin-bottom: 10px;
+}
+
+
+/* ==============================
+   PREDICTION INFORMATION
+   ============================== */
+
+.prediction-info {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.prediction-info h2 {
+    color: #14213d;
+    margin-bottom: 20px;
+}
+
+.info-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+
+/* ==============================
+   EMPTY STATES
+   ============================== */
+
+.empty-state {
+    background: white;
+    text-align: center;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+}
+
+.empty-state h2,
+.empty-state h3 {
+    color: #14213d;
+    margin-bottom: 10px;
+}
+
+
+/* ==============================
+   FLASH MESSAGES
+   ============================== */
+
+.flash-messages {
+    margin-bottom: 20px;
+}
+
+.flash-message {
+    background: #fff3cd;
+    color: #856404;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+
+/* ==============================
+   FOOTER
+   ============================== */
 
 footer {
-    background-color: #181a24;
-    border-top: 1px solid #222533;
-    padding: 16px;
+    background: #14213d;
+    color: white;
     text-align: center;
-    font-size: 13px;
-    color: #4b5563;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+
+/* ==============================
+   MOBILE RESPONSIVE
+   ============================== */
+
+@media (max-width: 800px) {
+
+    nav {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .features,
+    .driver-options,
+    .results-container,
+    .info-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-buttons .btn {
+        width: 200px;
+    }
+
+    .driver-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .container {
+        width: 94%;
+    }
 }
