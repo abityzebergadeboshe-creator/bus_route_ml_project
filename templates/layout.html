@@ -1,26 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>GuzoAI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}GuzoAI{% endblock %}</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
     <nav>
-        <div class="logo">GuzoAI</div>
+        <div class="logo">
+            <a href="{{ url_for('home') }}">GuzoAI</a>
+        </div>
 
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/driver">Driver</a></li>
-            <li><a href="/schedule">Schedule</a></li>
-            <li><a href="/passenger">Passenger</a></li>
-            <li><a href="/admin">Admin</a></li>
+            <li>
+                <a href="{{ url_for('home') }}">Home</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('driver') }}">Driver</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('schedule') }}">Schedule</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('passenger') }}">Passenger</a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('admin') }}">Admin</a>
+            </li>
         </ul>
     </nav>
 
-    <div class="container">
+    <main class="container">
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
         {% block content %}{% endblock %}
-    </div>
+
+    </main>
+
+    <footer>
+        <p>© 2026 GuzoAI — Intelligent Urban Transportation</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
 </html>
