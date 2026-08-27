@@ -1,20 +1,83 @@
 {% extends "layout.html" %}
 
+{% block title %}Verification Status - GuzoAI{% endblock %}
+
 {% block content %}
 
-<h1>Driver Verification</h1>
+<section class="verification-section">
 
-<p><strong>Driver:</strong> {{ driver_name }}</p>
-<p><strong>Driver ID:</strong> {{ driver_id }}</p>
-<p><strong>Vehicle:</strong> {{ vehicle }}</p>
+    <div class="verification-card">
 
-<h2>Status: {{ status }}</h2>
+        <h1>Driver Verification</h1>
 
-<p>
-Your verification application has been submitted.
-Please wait for administrator approval.
-</p>
+        <p class="verification-intro">
+            Your driver verification application has been submitted successfully.
+        </p>
 
-<a href="/driver">Back to Driver Dashboard</a>
+        <div class="driver-info">
+
+            <div class="info-row">
+                <span>Driver Name</span>
+                <strong>{{ driver_name }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Driver ID</span>
+                <strong>{{ driver_id }}</strong>
+            </div>
+
+            <div class="info-row">
+                <span>Vehicle Number</span>
+                <strong>{{ vehicle }}</strong>
+            </div>
+
+        </div>
+
+        <div class="status-box">
+
+            <p>Verification Status</p>
+
+            <h2>{{ status }}</h2>
+
+        </div>
+
+        {% if status == "Approved" %}
+
+            <p class="status-message">
+                Your driver account has been approved. You can now use
+                the GuzoAI driver services.
+            </p>
+
+        {% elif status == "Rejected" %}
+
+            <p class="status-message">
+                Your verification application was rejected.
+                Please contact the administrator for more information.
+            </p>
+
+        {% else %}
+
+            <p class="status-message">
+                Your verification application is currently pending.
+                Please wait for administrator approval.
+            </p>
+
+        {% endif %}
+
+        <div class="verification-buttons">
+
+            <a href="{{ url_for('driver') }}" class="btn">
+                Driver Dashboard
+            </a>
+
+            <a href="{{ url_for('home') }}" class="btn secondary-btn">
+                Back to Home
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
 
 {% endblock %}
