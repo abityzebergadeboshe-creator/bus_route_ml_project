@@ -1,22 +1,127 @@
 {% extends "layout.html" %}
 
+{% block title %}Prediction Result - GuzoAI{% endblock %}
+
 {% block content %}
 
-<div class="prediction-box">
+<section class="result-section">
 
-    <h1>GuzoAI Prediction Result</h1>
+    <div class="page-header">
 
-    <h2>Predicted Fare</h2>
-    <p class="result">{{ prediction }}</p>
+        <h1>GuzoAI Prediction Result</h1>
 
-    <h2>Estimated Travel Time</h2>
-    <p class="result">{{ eta }} minutes</p>
+        <p>
+            Your trip has been analyzed using GuzoAI's
+            machine learning models.
+        </p>
 
-    <h2>Traffic Level</h2>
-    <p class="result">{{ traffic }}</p>
+    </div>
 
-    <a href="/predict" class="btn">Make Another Prediction</a>
 
-</div>
+    <div class="results-container">
+
+
+        <div class="result-card">
+
+            <h2>Predicted Fare</h2>
+
+            <p class="result-value">
+                {{ prediction }}
+            </p>
+
+            <p class="result-label">
+                Estimated Fare
+            </p>
+
+        </div>
+
+
+        <div class="result-card">
+
+            <h2>Estimated Travel Time</h2>
+
+            <p class="result-value">
+                {{ eta }}
+            </p>
+
+            <p class="result-label">
+                Minutes
+            </p>
+
+        </div>
+
+
+        <div class="result-card">
+
+            <h2>Traffic Level</h2>
+
+            {% if traffic == 1 %}
+
+                <p class="result-value">
+                    Low
+                </p>
+
+            {% elif traffic == 2 %}
+
+                <p class="result-value">
+                    Medium
+                </p>
+
+            {% elif traffic == 3 %}
+
+                <p class="result-value">
+                    High
+                </p>
+
+            {% else %}
+
+                <p class="result-value">
+                    Unknown
+                </p>
+
+            {% endif %}
+
+            <p class="result-label">
+                Predicted traffic condition
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="result-message">
+
+        <h2>Your Trip Estimate</h2>
+
+        <p>
+            Based on the information you provided, GuzoAI estimates
+            a fare of <strong>{{ prediction }}</strong> and a travel
+            time of <strong>{{ eta }} minutes</strong>.
+        </p>
+
+    </div>
+
+
+    <div class="result-actions">
+
+        <a
+            href="{{ url_for('predict') }}"
+            class="btn"
+        >
+            Make Another Prediction
+        </a>
+
+        <a
+            href="{{ url_for('home') }}"
+            class="btn secondary-btn"
+        >
+            Back to Home
+        </a>
+
+    </div>
+
+</section>
 
 {% endblock %}
