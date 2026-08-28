@@ -1,5 +1,6 @@
 import sqlite3
 
+
 DATABASE = "guzoai.db"
 
 
