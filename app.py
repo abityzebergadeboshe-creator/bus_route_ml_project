@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 import sqlite3
-import joblib 
+import joblib
 import pandas as pd
 from datetime import datetime, timedelta
 
@@ -12,19 +12,18 @@ app = Flask(__name__)
 # Secret key for flash messages
 app.secret_key = "guzoai-secret-key"
 
-
-# ==============================
-# DATABASE
-# ==============================
-
 DATABASE = "guzoai.db"
 
+
+# ==============================
+# DATABASE CONNECTION
+# ==============================
 
 def get_connection():
     return sqlite3.connect(DATABASE)
 
 
-# Create database tables when the application starts
+# Create database tables
 create_database()
 
 
@@ -90,9 +89,7 @@ def verify():
 
             conn.close()
 
-            flash(
-                "This Driver ID is already registered."
-            )
+            flash("This Driver ID is already registered.")
 
             return redirect(url_for("verify"))
 
@@ -184,9 +181,9 @@ def reject(driver_id):
     return redirect(url_for("admin"))
 
 
-# ==============================
+# ==========================================================
 # DRIVER SCHEDULE
-# ==============================
+# ==========================================================
 
 @app.route("/schedule", methods=["GET", "POST"])
 def schedule():
@@ -199,7 +196,6 @@ def schedule():
         start_time = request.form["start_time"]
         passengers = int(request.form["passengers"])
 
-        # Convert selected date
         selected_date = datetime.strptime(
             date,
             "%Y-%m-%d"
@@ -209,7 +205,7 @@ def schedule():
 
         two_weeks_from_now = today + timedelta(days=14)
 
-        # Check 2-week limit
+        # Only allow schedules within next 2 weeks
         if selected_date < today or selected_date > two_weeks_from_now:
 
             flash(
@@ -236,10 +232,11 @@ def schedule():
         conn.commit()
         conn.close()
 
-        flash("Schedule saved successfully.")
+        flash("Driver schedule saved successfully.")
 
         return redirect(url_for("schedule"))
 
+    # Get driver schedules
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -257,33 +254,104 @@ def schedule():
 
     schedules = cursor.fetchall()
 
+    # Get passenger bookings
+    cursor.execute("""
+        SELECT
+            id,
+            passenger_name,
+            date,
+            time,
+            destination
+        FROM passenger_bookings
+        ORDER BY date, time
+    """)
+
+    passenger_bookings = cursor.fetchall()
+
     conn.close()
 
     return render_template(
         "schedule.html",
-        schedules=schedules
+        schedules=schedules,
+        passenger_bookings=passenger_bookings
     )
 
 
-# ==============================
+# ==========================================================
+# PASSENGER BOOKING
+# ==========================================================
+
+@app.route("/book-passenger", methods=["POST"])
+def book_passenger():
+
+    passenger_name = request.form["passenger_name"]
+    date = request.form["date"]
+    time = request.form["time"]
+    destination = request.form["destination"]
+
+    # Check date
+    try:
+        selected_date = datetime.strptime(
+            date,
+            "%Y-%m-%d"
+        ).date()
+    except ValueError:
+
+        flash("Invalid travel date.")
+
+        return redirect(url_for("schedule"))
+
+    today = datetime.now().date()
+    two_weeks_from_now = today + timedelta(days=14)
+
+    if selected_date < today or selected_date > two_weeks_from_now:
+
+        flash(
+            "Passenger bookings can only be made for the next two weeks."
+        )
+
+        return redirect(url_for("schedule"))
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        INSERT INTO passenger_bookings
+        (passenger_name, date, time, destination)
+        VALUES (?, ?, ?, ?)
+    """, (
+        passenger_name,
+        date,
+        time,
+        destination
+    ))
+
+    conn.commit()
+    conn.close()
+
+    flash("Passenger reservation confirmed successfully.")
+
+    return redirect(url_for("schedule"))
+
+
+# ==========================================================
 # PASSENGER DASHBOARD
-# ==============================
+# ==========================================================
 
 @app.route("/passenger")
 def passenger():
     return render_template("passenger.html")
 
 
-# ==============================
+# ==========================================================
 # AI PREDICTION
-# ==============================
+# ==========================================================
 
 @app.route("/predict", methods=["GET", "POST"])
 def predict():
 
     if request.method == "POST":
 
-        # Passenger inputs
         distance = float(
             request.form["distance"]
         )
@@ -303,7 +371,6 @@ def predict():
         passengers = int(
             request.form["passengers"]
         )
-
 
         # ==============================
         # FARE PREDICTION
@@ -330,7 +397,6 @@ def predict():
             input_data
         )[0]
 
-
         # ==============================
         # ETA PREDICTION
         # ==============================
@@ -353,11 +419,6 @@ def predict():
         eta_prediction = eta_model.predict(
             eta_input
         )[0]
-
-
-        # ==============================
-        # SHOW RESULTS
-        # ==============================
 
         return render_template(
             "prediction.html",
