@@ -1,157 +1,522 @@
 {% extends "layout.html" %}
 
-{% block title %}Driver Schedule - GuzoAI{% endblock %}
+{% block title %}Schedule - GuzoAI{% endblock %}
 
 {% block content %}
 
 <section class="schedule-section">
 
+    <!-- ==============================
+         PAGE HEADER
+    =============================== -->
+
     <div class="page-header">
-        <h1>Driver Schedule</h1>
+        <h1>GuzoAI Schedule Portal</h1>
 
         <p>
-            Add and manage driver routes, departure times, and expected
-            passenger demand.
+            Book passenger trips, publish driver schedules,
+            and manage upcoming transportation bookings.
         </p>
     </div>
 
 
-    <div class="schedule-form">
+    <!-- ==============================
+         SCHEDULE NAVIGATION
+    =============================== -->
 
-        <h2>Add New Schedule</h2>
+    <div class="schedule-tabs">
 
-        <form action="{{ url_for('schedule') }}" method="POST">
+        <button
+            type="button"
+            class="schedule-tab active"
+            onclick="showScheduleSection('driver-section', this)">
+            🚚 Driver Schedule
+        </button>
 
-            <div class="form-group">
-                <label for="driver_name">Driver Name</label>
+        <button
+            type="button"
+            class="schedule-tab"
+            onclick="showScheduleSection('passenger-section', this)">
+            👤 Passenger Booking
+        </button>
 
-                <input
-                    type="text"
-                    id="driver_name"
-                    name="driver_name"
-                    placeholder="Enter driver name"
-                    required
-                >
-            </div>
+        <button
+            type="button"
+            class="schedule-tab"
+            onclick="showScheduleSection('driver-history', this)">
+            📋 Driver History
+        </button>
 
-
-            <div class="form-group">
-                <label for="route">Route</label>
-
-                <input
-                    type="text"
-                    id="route"
-                    name="route"
-                    placeholder="Bole to Piazza"
-                    required
-                >
-            </div>
-
-
-            <div class="form-group">
-                <label for="date">Date</label>
-
-                <input
-                    type="date"
-                    id="date"
-                    name="date"
-                    required
-                >
-            </div>
-
-
-            <div class="form-group">
-                <label for="start_time">Start Time</label>
-
-                <input
-                    type="time"
-                    id="start_time"
-                    name="start_time"
-                    required
-                >
-            </div>
-
-
-            <div class="form-group">
-                <label for="passengers">Expected Passengers</label>
-
-                <input
-                    type="number"
-                    id="passengers"
-                    name="passengers"
-                    min="1"
-                    placeholder="e.g. 30"
-                    required
-                >
-            </div>
-
-
-            <button type="submit" class="btn">
-                Save Schedule
-            </button>
-
-        </form>
+        <button
+            type="button"
+            class="schedule-tab"
+            onclick="showScheduleSection('passenger-history', this)">
+            📋 Passenger History
+        </button>
 
     </div>
 
 
-    <div class="schedule-list">
+    <!-- =========================================================
+         DRIVER SCHEDULE
+    ========================================================== -->
 
-        <h2>Saved Driver Schedules</h2>
+    <div id="driver-section" class="schedule-panel">
+
+        <div class="schedule-form">
+
+            <h2>🚚 Add New Driver Schedule</h2>
+
+            <p class="form-description">
+                Add a route, departure time, and expected passenger capacity.
+            </p>
+
+            <form
+                action="{{ url_for('schedule') }}"
+                method="POST">
+
+                <!-- DRIVER NAME -->
+
+                <div class="form-group">
+
+                    <label for="driver_name">
+                        Driver Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="driver_name"
+                        name="driver_name"
+                        placeholder="Captain Miller"
+                        required>
+
+                </div>
 
 
-        {% if schedules %}
+                <!-- ROUTE -->
 
-            <div class="table-container">
+                <div class="form-group">
 
-                <table>
+                    <label for="route">
+                        Route
+                    </label>
 
-                    <thead>
-                        <tr>
-                            <th>Driver</th>
-                            <th>Route</th>
-                            <th>Date</th>
-                            <th>Start Time</th>
-                            <th>Passengers</th>
-                        </tr>
-                    </thead>
+                    <input
+                        type="text"
+                        id="route"
+                        name="route"
+                        placeholder="Bole to Piazza"
+                        required>
 
-                    <tbody>
+                </div>
 
-                        {% for schedule in schedules %}
+
+                <!-- DATE -->
+
+                <div class="form-group">
+
+                    <label for="date">
+                        Travel Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        required>
+
+                </div>
+
+
+                <!-- TIME -->
+
+                <div class="form-group">
+
+                    <label for="start_time">
+                        Departure Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="start_time"
+                        name="start_time"
+                        required>
+
+                </div>
+
+
+                <!-- PASSENGER CAPACITY -->
+
+                <div class="form-group">
+
+                    <label for="passengers">
+                        Open Seats / Expected Passengers
+                    </label>
+
+                    <input
+                        type="number"
+                        id="passengers"
+                        name="passengers"
+                        min="1"
+                        placeholder="e.g. 4"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn">
+                    🚚 Publish Driver Schedule
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         PASSENGER BOOKING
+    ========================================================== -->
+
+    <div
+        id="passenger-section"
+        class="schedule-panel"
+        style="display: none;">
+
+        <div class="schedule-form">
+
+            <h2>👤 Book Passenger Trip</h2>
+
+            <p class="form-description">
+                Enter the passenger's travel date, preferred time,
+                and destination.
+            </p>
+
+
+            <form
+                action="{{ url_for('book_passenger') }}"
+                method="POST">
+
+                <!-- PASSENGER NAME -->
+
+                <div class="form-group">
+
+                    <label for="passenger_name">
+                        Passenger Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="passenger_name"
+                        name="passenger_name"
+                        placeholder="Sarah Jenkins"
+                        required>
+
+                </div>
+
+
+                <!-- TRAVEL DATE -->
+
+                <div class="form-group">
+
+                    <label for="passenger_date">
+                        Travel Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="passenger_date"
+                        name="date"
+                        required>
+
+                </div>
+
+
+                <!-- TRAVEL TIME -->
+
+                <div class="form-group">
+
+                    <label for="passenger_time">
+                        Preferred Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="passenger_time"
+                        name="time"
+                        required>
+
+                </div>
+
+
+                <!-- DESTINATION -->
+
+                <div class="form-group">
+
+                    <label for="destination">
+                        Drop-off Location / Notes
+                    </label>
+
+                    <input
+                        type="text"
+                        id="destination"
+                        name="destination"
+                        placeholder="Central Station Terminal A"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn">
+                    👤 Confirm Passenger Reservation
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         DRIVER HISTORY
+    ========================================================== -->
+
+    <div
+        id="driver-history"
+        class="schedule-panel"
+        style="display: none;">
+
+        <div class="schedule-list">
+
+            <h2>📋 Saved Driver Schedules</h2>
+
+
+            {% if schedules %}
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
 
                             <tr>
-                                <td>{{ schedule[1] }}</td>
-                                <td>{{ schedule[2] }}</td>
-                                <td>{{ schedule[3] }}</td>
-                                <td>{{ schedule[4] }}</td>
-                                <td>{{ schedule[5] }}</td>
+                                <th>Driver</th>
+                                <th>Route</th>
+                                <th>Date</th>
+                                <th>Start Time</th>
+                                <th>Passengers</th>
                             </tr>
 
-                        {% endfor %}
+                        </thead>
 
-                    </tbody>
 
-                </table>
+                        <tbody>
 
-            </div>
+                            {% for schedule in schedules %}
 
-        {% else %}
+                                <tr>
 
-            <div class="empty-state">
+                                    <td>
+                                        {{ schedule[1] }}
+                                    </td>
 
-                <h3>No Schedules Yet</h3>
+                                    <td>
+                                        {{ schedule[2] }}
+                                    </td>
 
-                <p>
-                    No driver schedules have been added yet.
-                </p>
+                                    <td>
+                                        {{ schedule[3] }}
+                                    </td>
 
-            </div>
+                                    <td>
+                                        {{ schedule[4] }}
+                                    </td>
 
-        {% endif %}
+                                    <td>
+                                        {{ schedule[5] }}
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+
+                    <h3>No Driver Schedules Yet</h3>
+
+                    <p>
+                        No driver schedules have been added yet.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         PASSENGER HISTORY
+    ========================================================== -->
+
+    <div
+        id="passenger-history"
+        class="schedule-panel"
+        style="display: none;">
+
+        <div class="schedule-list">
+
+            <h2>📋 Passenger Bookings</h2>
+
+
+            {% if passenger_bookings %}
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>Passenger</th>
+                                <th>Travel Date</th>
+                                <th>Time</th>
+                                <th>Destination</th>
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for booking in passenger_bookings %}
+
+                                <tr>
+
+                                    <td>
+                                        {{ booking[1] }}
+                                    </td>
+
+                                    <td>
+                                        {{ booking[2] }}
+                                    </td>
+
+                                    <td>
+                                        {{ booking[3] }}
+                                    </td>
+
+                                    <td>
+                                        {{ booking[4] }}
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+
+                    <h3>No Passenger Bookings Yet</h3>
+
+                    <p>
+                        No passenger reservations have been made yet.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
 
     </div>
 
 </section>
+
+
+<!-- =========================================================
+     SMALL SCHEDULE PAGE JAVASCRIPT
+========================================================== -->
+
+<script>
+
+function showScheduleSection(sectionId, clickedButton) {
+
+    const sections = [
+        "driver-section",
+        "passenger-section",
+        "driver-history",
+        "passenger-history"
+    ];
+
+    // Hide all sections
+
+    sections.forEach(function(id) {
+
+        const section = document.getElementById(id);
+
+        if (section) {
+            section.style.display = "none";
+        }
+
+    });
+
+
+    // Show selected section
+
+    const selectedSection =
+        document.getElementById(sectionId);
+
+    if (selectedSection) {
+        selectedSection.style.display = "block";
+    }
+
+
+    // Remove active state from all tabs
+
+    const tabs =
+        document.querySelectorAll(".schedule-tab");
+
+    tabs.forEach(function(tab) {
+
+        tab.classList.remove("active");
+
+    });
+
+
+    // Activate clicked tab
+
+    if (clickedButton) {
+
+        clickedButton.classList.add("active");
+
+    }
+
+}
+
+</script>
+
 
 {% endblock %}
