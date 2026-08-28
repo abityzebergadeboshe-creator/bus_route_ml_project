@@ -1,6 +1,5 @@
 import sqlite3
 
-
 DATABASE = "guzoai.db"
 
 
@@ -24,9 +23,8 @@ def create_database():
         )
     """)
 
-
     # ==============================
-    # SCHEDULE TABLE
+    # DRIVER SCHEDULE TABLE
     # ==============================
 
     cursor.execute("""
@@ -40,6 +38,19 @@ def create_database():
         )
     """)
 
+    # ==============================
+    # PASSENGER BOOKINGS TABLE
+    # ==============================
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS passenger_bookings (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            passenger_name TEXT NOT NULL,
+            date TEXT NOT NULL,
+            time TEXT NOT NULL,
+            destination TEXT NOT NULL
+        )
+    """)
 
     conn.commit()
     conn.close()
