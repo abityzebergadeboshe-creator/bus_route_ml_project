@@ -9,7 +9,10 @@ from database import create_database
 
 app = Flask(__name__)
 
-# Secret key for flash messages
+# ==============================
+# FLASK CONFIGURATION
+# ==============================
+
 app.secret_key = "guzoai-secret-key"
 
 DATABASE = "guzoai.db"
@@ -23,7 +26,7 @@ def get_connection():
     return sqlite3.connect(DATABASE)
 
 
-# Create database tables
+# Create database tables when application starts
 create_database()
 
 
@@ -196,16 +199,25 @@ def schedule():
         start_time = request.form["start_time"]
         passengers = int(request.form["passengers"])
 
-        selected_date = datetime.strptime(
-            date,
-            "%Y-%m-%d"
-        ).date()
+        # Convert selected date
+        try:
+
+            selected_date = datetime.strptime(
+                date,
+                "%Y-%m-%d"
+            ).date()
+
+        except ValueError:
+
+            flash("Invalid schedule date.")
+
+            return redirect(url_for("schedule"))
 
         today = datetime.now().date()
 
         two_weeks_from_now = today + timedelta(days=14)
 
-        # Only allow schedules within next 2 weeks
+        # Only allow schedules for the next two weeks
         if selected_date < today or selected_date > two_weeks_from_now:
 
             flash(
@@ -236,7 +248,10 @@ def schedule():
 
         return redirect(url_for("schedule"))
 
-    # Get driver schedules
+    # ==============================
+    # GET DRIVER SCHEDULES
+    # ==============================
+
     conn = get_connection()
     cursor = conn.cursor()
 
@@ -254,7 +269,11 @@ def schedule():
 
     schedules = cursor.fetchall()
 
-    # Get passenger bookings
+
+    # ==============================
+    # GET PASSENGER BOOKINGS
+    # ==============================
+
     cursor.execute("""
         SELECT
             id,
@@ -289,12 +308,17 @@ def book_passenger():
     time = request.form["time"]
     destination = request.form["destination"]
 
-    # Check date
+    # ==============================
+    # VALIDATE DATE
+    # ==============================
+
     try:
+
         selected_date = datetime.strptime(
             date,
             "%Y-%m-%d"
         ).date()
+
     except ValueError:
 
         flash("Invalid travel date.")
@@ -302,8 +326,10 @@ def book_passenger():
         return redirect(url_for("schedule"))
 
     today = datetime.now().date()
+
     two_weeks_from_now = today + timedelta(days=14)
 
+    # Only allow bookings for next two weeks
     if selected_date < today or selected_date > two_weeks_from_now:
 
         flash(
@@ -311,6 +337,10 @@ def book_passenger():
         )
 
         return redirect(url_for("schedule"))
+
+    # ==============================
+    # SAVE PASSENGER BOOKING
+    # ==============================
 
     conn = get_connection()
     cursor = conn.cursor()
@@ -334,23 +364,25 @@ def book_passenger():
     return redirect(url_for("schedule"))
 
 
-# ==========================================================
+# ==============================
 # PASSENGER DASHBOARD
-# ==========================================================
+# ==============================
 
 @app.route("/passenger")
 def passenger():
     return render_template("passenger.html")
 
 
-# ==========================================================
+# ==============================
 # AI PREDICTION
-# ==========================================================
+# ==============================
 
 @app.route("/predict", methods=["GET", "POST"])
 def predict():
 
     if request.method == "POST":
+
+        # Passenger inputs
 
         distance = float(
             request.form["distance"]
@@ -371,6 +403,7 @@ def predict():
         passengers = int(
             request.form["passengers"]
         )
+
 
         # ==============================
         # FARE PREDICTION
@@ -397,6 +430,7 @@ def predict():
             input_data
         )[0]
 
+
         # ==============================
         # ETA PREDICTION
         # ==============================
@@ -419,6 +453,11 @@ def predict():
         eta_prediction = eta_model.predict(
             eta_input
         )[0]
+
+
+        # ==============================
+        # SHOW RESULTS
+        # ==============================
 
         return render_template(
             "prediction.html",
