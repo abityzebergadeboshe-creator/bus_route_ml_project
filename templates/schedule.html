@@ -6,23 +6,21 @@
 
 <section class="schedule-section">
 
-    <!-- ==============================
-         PAGE HEADER
-    =============================== -->
+    <!-- PAGE HEADER -->
 
     <div class="page-header">
+
         <h1>GuzoAI Schedule Portal</h1>
 
         <p>
             Book passenger trips, publish driver schedules,
             and manage upcoming transportation bookings.
         </p>
+
     </div>
 
 
-    <!-- ==============================
-         SCHEDULE NAVIGATION
-    =============================== -->
+    <!-- SCHEDULE TABS -->
 
     <div class="schedule-tabs">
 
@@ -57,9 +55,9 @@
     </div>
 
 
-    <!-- =========================================================
+    <!-- =====================================================
          DRIVER SCHEDULE
-    ========================================================== -->
+    ====================================================== -->
 
     <div id="driver-section" class="schedule-panel">
 
@@ -67,15 +65,14 @@
 
             <h2>🚚 Add New Driver Schedule</h2>
 
-            <p class="form-description">
-                Add a route, departure time, and expected passenger capacity.
+            <p>
+                Add a route, departure time, and expected passenger
+                capacity.
             </p>
 
             <form
                 action="{{ url_for('schedule') }}"
                 method="POST">
-
-                <!-- DRIVER NAME -->
 
                 <div class="form-group">
 
@@ -93,8 +90,6 @@
                 </div>
 
 
-                <!-- ROUTE -->
-
                 <div class="form-group">
 
                     <label for="route">
@@ -111,8 +106,6 @@
                 </div>
 
 
-                <!-- DATE -->
-
                 <div class="form-group">
 
                     <label for="date">
@@ -128,8 +121,6 @@
                 </div>
 
 
-                <!-- TIME -->
-
                 <div class="form-group">
 
                     <label for="start_time">
@@ -144,8 +135,6 @@
 
                 </div>
 
-
-                <!-- PASSENGER CAPACITY -->
 
                 <div class="form-group">
 
@@ -167,7 +156,9 @@
                 <button
                     type="submit"
                     class="btn">
+
                     🚚 Publish Driver Schedule
+
                 </button>
 
             </form>
@@ -177,9 +168,9 @@
     </div>
 
 
-    <!-- =========================================================
+    <!-- =====================================================
          PASSENGER BOOKING
-    ========================================================== -->
+    ====================================================== -->
 
     <div
         id="passenger-section"
@@ -190,7 +181,7 @@
 
             <h2>👤 Book Passenger Trip</h2>
 
-            <p class="form-description">
+            <p>
                 Enter the passenger's travel date, preferred time,
                 and destination.
             </p>
@@ -199,8 +190,6 @@
             <form
                 action="{{ url_for('book_passenger') }}"
                 method="POST">
-
-                <!-- PASSENGER NAME -->
 
                 <div class="form-group">
 
@@ -218,8 +207,6 @@
                 </div>
 
 
-                <!-- TRAVEL DATE -->
-
                 <div class="form-group">
 
                     <label for="passenger_date">
@@ -235,8 +222,6 @@
                 </div>
 
 
-                <!-- TRAVEL TIME -->
-
                 <div class="form-group">
 
                     <label for="passenger_time">
@@ -251,8 +236,6 @@
 
                 </div>
 
-
-                <!-- DESTINATION -->
 
                 <div class="form-group">
 
@@ -273,7 +256,9 @@
                 <button
                     type="submit"
                     class="btn">
+
                     👤 Confirm Passenger Reservation
+
                 </button>
 
             </form>
@@ -283,9 +268,9 @@
     </div>
 
 
-    <!-- =========================================================
+    <!-- =====================================================
          DRIVER HISTORY
-    ========================================================== -->
+    ====================================================== -->
 
     <div
         id="driver-history"
@@ -371,9 +356,9 @@
     </div>
 
 
-    <!-- =========================================================
+    <!-- =====================================================
          PASSENGER HISTORY
-    ========================================================== -->
+    ====================================================== -->
 
     <div
         id="passenger-history"
@@ -456,9 +441,9 @@
 </section>
 
 
-<!-- =========================================================
-     SMALL SCHEDULE PAGE JAVASCRIPT
-========================================================== -->
+<!-- =====================================================
+     SCHEDULE PAGE JAVASCRIPT
+====================================================== -->
 
 <script>
 
@@ -471,7 +456,8 @@ function showScheduleSection(sectionId, clickedButton) {
         "passenger-history"
     ];
 
-    // Hide all sections
+
+    // Hide every section
 
     sections.forEach(function(id) {
 
@@ -494,7 +480,7 @@ function showScheduleSection(sectionId, clickedButton) {
     }
 
 
-    // Remove active state from all tabs
+    // Remove active state
 
     const tabs =
         document.querySelectorAll(".schedule-tab");
@@ -506,7 +492,7 @@ function showScheduleSection(sectionId, clickedButton) {
     });
 
 
-    // Activate clicked tab
+    // Activate selected tab
 
     if (clickedButton) {
 
